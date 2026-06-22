@@ -66,8 +66,8 @@ export function Navbar({ search, onSearch, wishlistCount }: NavbarProps) {
         </div>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          <Button variant="ghost" className="hidden rounded-full text-sm font-semibold lg:inline-flex">
-            Become a Host
+          <Button variant="ghost" className="hidden rounded-full text-sm font-semibold lg:inline-flex" asChild>
+            <Link to="/login">Become a Host</Link>
           </Button>
           <Button variant="ghost" size="icon" className="hidden rounded-full sm:inline-flex" aria-label="Language">
             <Globe className="h-5 w-5" />
@@ -94,14 +94,22 @@ export function Navbar({ search, onSearch, wishlistCount }: NavbarProps) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-52">
-              <DropdownMenuItem className="font-semibold">Sign up</DropdownMenuItem>
-              <DropdownMenuItem>Log in</DropdownMenuItem>
+              <DropdownMenuItem asChild className="font-semibold">
+                <Link to="/login">Sign up</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/login">Log in</Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Heart className="mr-2 h-4 w-4" /> Wishlist ({wishlistCount})
               </DropdownMenuItem>
-              <DropdownMenuItem>Become a Host</DropdownMenuItem>
-              <DropdownMenuItem>Help Center</DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/login">Become a Host</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to="/help">Help Center</Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
