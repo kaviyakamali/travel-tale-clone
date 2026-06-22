@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Globe, Heart, Menu, Search, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
