@@ -125,16 +125,24 @@ export function Navbar({ search, onSearch, wishlistCount }: NavbarProps) {
                 <SheetTitle>Menu</SheetTitle>
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-1">
-                <Button variant="ghost" className="justify-start">Sign up</Button>
-                <Button variant="ghost" className="justify-start">Log in</Button>
+                <Button variant="ghost" className="justify-start" asChild>
+                  <Link to="/login">Sign up</Link>
+                </Button>
+                <Button variant="ghost" className="justify-start" asChild>
+                  <Link to="/login">Log in</Link>
+                </Button>
                 <Button variant="ghost" className="justify-start">
                   <Heart className="mr-2 h-4 w-4" /> Wishlist ({wishlistCount})
                 </Button>
-                <Button variant="ghost" className="justify-start">Become a Host</Button>
+                <Button variant="ghost" className="justify-start" asChild>
+                  <Link to="/login">Become a Host</Link>
+                </Button>
                 <Button variant="ghost" className="justify-start">
                   <Globe className="mr-2 h-4 w-4" /> Language
                 </Button>
-                <Button variant="ghost" className="justify-start">Help Center</Button>
+                <Button variant="ghost" className="justify-start" asChild>
+                  <Link to="/help">Help Center</Link>
+                </Button>
               </div>
             </SheetContent>
           </Sheet>
