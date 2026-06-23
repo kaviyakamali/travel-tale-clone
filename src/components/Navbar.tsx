@@ -36,6 +36,15 @@ interface NavbarProps {
 
 export function Navbar({ search, onSearch, wishlistCount }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [language, setLanguage] = useState("English (US)");
+  const languages = [
+    "English (US)",
+    "Español",
+    "Français",
+    "Deutsch",
+    "日本語",
+    "हिन्दी",
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
