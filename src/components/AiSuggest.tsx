@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { useServerFn } from "@tanstack/react-start";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Loader2, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { suggestDestinations } from "@/lib/ai.functions";
 
 interface Suggestion {
   destination: string;
