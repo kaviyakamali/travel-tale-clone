@@ -19,7 +19,7 @@ export function Hosting() {
         className="overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-primary/70 p-8 text-primary-foreground sm:p-14"
       >
         <div className="max-w-2xl">
-          <h2 className="text-3xl font-extrabold sm:text-4xl">Become an Airbnb Host</h2>
+          <h2 className="text-3xl font-extrabold sm:text-4xl">Become a Wanderly Host</h2>
           <p className="mt-3 text-base text-primary-foreground/90 sm:text-lg">
             Open your door to a world of opportunity. Share your space, earn extra
             income, and join a global community of hosts.
