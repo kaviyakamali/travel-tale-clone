@@ -24,7 +24,6 @@ const PROMPTS = [
 ];
 
 export function AiSuggest({ onPick }: AiSuggestProps) {
-  const suggest = useServerFn(suggestDestinations);
   const [mood, setMood] = useState("");
   const [loading, setLoading] = useState(false);
   const [intro, setIntro] = useState("");
@@ -37,9 +36,28 @@ export function AiSuggest({ onPick }: AiSuggestProps) {
     setResults([]);
     setIntro("");
     try {
-      const out = await suggest({ data: { mood: text } });
+      const res = await fetch("/api/suggest", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mood: text }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      const out = (await res.json()) as { intro: string; suggestions: Suggestion[] };
       setIntro(out.intro);
       setResults(out.suggestions);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Something went wrong";
+      toast.error(
+        msg.includes("429")
+          ? "AI is busy right now — try again shortly."
+          : msg.includes("402")
+            ? "AI credits exhausted."
+            : "Couldn't fetch suggestions. Try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Something went wrong";
       toast.error(
