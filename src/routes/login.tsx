@@ -11,15 +11,15 @@ import { Separator } from "@/components/ui/separator";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Log in or sign up — Airbnb Clone" },
+      { title: "Log in — Wanderly" },
       {
         name: "description",
-        content: "Log in or create an account to book unique stays and experiences.",
+        content: "Log in to book unique stays and experiences with Wanderly.",
       },
-      { property: "og:title", content: "Log in or sign up — Airbnb Clone" },
+      { property: "og:title", content: "Log in — Wanderly" },
       {
         property: "og:description",
-        content: "Log in or create an account to book unique stays and experiences.",
+        content: "Log in to book unique stays and experiences with Wanderly.",
       },
     ],
   }),
@@ -32,26 +32,24 @@ function Logo() {
       <svg viewBox="0 0 32 32" className="h-9 w-9 fill-current" aria-hidden>
         <path d="M16 1c2.5 0 4.5 2 4.9 4.6.3 1.8-.3 3.6-1.4 5.9l-.6 1.2c2.6 4.2 5 8.4 6 11.6.6 2 .3 3.7-.9 4.9-1 1-2.4 1.3-3.7 1-1.4-.3-2.7-1.2-4-2.6-1.3 1.4-2.6 2.3-4 2.6-1.3.3-2.7 0-3.7-1-1.2-1.2-1.5-2.9-.9-4.9 1-3.2 3.4-7.4 6-11.6l-.6-1.2c-1.1-2.3-1.7-4.1-1.4-5.9C11.5 3 13.5 1 16 1zm0 2.2c-1.4 0-2.5 1.1-2.7 2.7-.2 1.1.2 2.4 1.2 4.4l1.5 3 1.5-3c1-2 1.4-3.3 1.2-4.4-.2-1.6-1.3-2.7-2.7-2.7z" />
       </svg>
-      <span className="text-2xl font-extrabold tracking-tight">airbnb</span>
+      <span className="text-2xl font-extrabold tracking-tight">Wanderly</span>
     </Link>
   );
 }
 
 function LoginPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"login" | "signup">("login");
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password || (mode === "signup" && !name)) {
+    if (!email || !password) {
       toast.error("Please fill in all fields");
       return;
     }
-    toast.success(mode === "login" ? "Welcome back!" : "Account created — welcome!");
+    toast.success("Welcome back!");
     navigate({ to: "/" });
   };
 
@@ -75,28 +73,12 @@ function LoginPage() {
           transition={{ duration: 0.4 }}
           className="w-full max-w-md rounded-2xl border bg-background p-6 shadow-sm sm:p-8"
         >
-          <h1 className="text-2xl font-extrabold">
-            {mode === "login" ? "Welcome back" : "Create your account"}
-          </h1>
+          <h1 className="text-2xl font-extrabold">Welcome back</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            {mode === "login"
-              ? "Log in to continue exploring stays."
-              : "Sign up to start your next adventure."}
+            Log in to continue exploring stays.
           </p>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-            {mode === "signup" && (
-              <div className="space-y-1.5">
-                <Label htmlFor="name">Full name</Label>
-                <Input
-                  id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Jane Doe"
-                  className="h-11"
-                />
-              </div>
-            )}
             <div className="space-y-1.5">
               <Label htmlFor="email">Email</Label>
               <div className="relative">
@@ -135,7 +117,7 @@ function LoginPage() {
             </div>
 
             <Button type="submit" className="h-11 w-full rounded-full text-base font-semibold">
-              {mode === "login" ? "Log in" : "Sign up"}
+              Log in
             </Button>
           </form>
 
@@ -145,20 +127,13 @@ function LoginPage() {
             <Separator className="flex-1" />
           </div>
 
-          <Button variant="outline" className="h-11 w-full rounded-full" onClick={() => toast.info("Social login is a demo")}>
+          <Button
+            variant="outline"
+            className="h-11 w-full rounded-full"
+            onClick={() => toast.info("Social login is a demo")}
+          >
             <Globe className="mr-2 h-4 w-4" /> Continue with Google
           </Button>
-
-          <p className="mt-6 text-center text-sm text-muted-foreground">
-            {mode === "login" ? "New to Airbnb?" : "Already have an account?"}{" "}
-            <button
-              type="button"
-              onClick={() => setMode(mode === "login" ? "signup" : "login")}
-              className="font-semibold text-primary hover:underline"
-            >
-              {mode === "login" ? "Sign up" : "Log in"}
-            </button>
-          </p>
         </motion.div>
       </main>
     </div>
