@@ -47,17 +47,23 @@ export const suggestDestinations = createServerFn({ method: "POST" })
 
     const gateway = createLovableAiGatewayProvider(key);
 
-    const { text } = await generateText({
-      model: gateway("google/gemini-3-flash-preview"),
-      prompt:
-        `You are a travel concierge for a vacation rental app called Wanderly. ` +
-        `Based on the traveller's vibe: "${data.mood}", suggest up to 4 dream destinations. ` +
-        `For each, pick the single best matching category strictly from this list: ${CATEGORY_NAMES.join(", ")}. ` +
-        `Respond with ONLY valid minified JSON, no markdown, in this exact shape: ` +
-        `{"intro":string,"suggestions":[{"destination":string,"category":string,"reason":string,"searchQuery":string}]}. ` +
-        `"searchQuery" must be a short city or place keyword (1-2 words). ` +
-        `"reason" is one warm sentence (max 18 words). "intro" is one friendly summary sentence.`,
-    });
+    let text: string;
+    try {
+      const res = await generateText({
+        model: gateway("google/gemini-3-flash-preview"),
+        prompt:
+          `You are a travel concierge for a vacation rental app called Wanderly. ` +
+          `Based on the traveller's vibe: "${data.mood}", suggest up to 4 dream destinations. ` +
+          `For each, pick the single best matching category strictly from this list: ${CATEGORY_NAMES.join(", ")}. ` +
+          `Respond with ONLY valid minified JSON, no markdown, in this exact shape: ` +
+          `{"intro":string,"suggestions":[{"destination":string,"category":string,"reason":string,"searchQuery":string}]}. ` +
+          `"searchQuery" must be a short city or place keyword (1-2 words). ` +
+          `"reason" is one warm sentence (max 18 words). "intro" is one friendly summary sentence.`,
+      });
+      text = res.text;
+    } catch (e) {
+      throw new Error("AI_CALL_FAILED: " + (e instanceof Error ? e.message : String(e)));
+    }
 
     const parsed = extractJson(text) as Partial<SuggestResult>;
     const suggestions = Array.isArray(parsed.suggestions)
