@@ -53,7 +53,7 @@ const CITY_COORDS: Record<string, [number, number]> = {
   spain: [40.4637, -3.7492],
   scotland: [56.4907, -4.2026],
   ireland: [53.4129, -8.2439],
-  costa rica: [9.7489, -83.7534],
+  "costa rica": [9.7489, -83.7534],
   peru: [-9.19, -75.0152],
   brazil: [-14.235, -51.9253],
 };
