@@ -25,7 +25,7 @@ const CITY_COORDS: Record<string, [number, number]> = {
   paris: [48.8566, 2.3522],
   france: [46.2276, 2.2137],
   switzerland: [46.8182, 8.2275],
-  alps: [46.8876, 9.6),
+  alps: [46.8876, 9.6],
   iceland: [64.9631, -19.0208],
   reykjavik: [64.1466, -21.9426],
   norway: [60.472, 8.4689],
