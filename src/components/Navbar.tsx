@@ -149,23 +149,32 @@ export function Navbar({ search, onSearch, wishlistCount }: NavbarProps) {
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-1">
                 <Button variant="ghost" className="justify-start" asChild>
-                  <Link to="/login">Sign up</Link>
-                </Button>
-                <Button variant="ghost" className="justify-start" asChild>
                   <Link to="/login">Log in</Link>
                 </Button>
-                <Button variant="ghost" className="justify-start">
-                  <Heart className="mr-2 h-4 w-4" /> Wishlist ({wishlistCount})
-                </Button>
                 <Button variant="ghost" className="justify-start" asChild>
-                  <Link to="/login">Become a Host</Link>
-                </Button>
-                <Button variant="ghost" className="justify-start">
-                  <Globe className="mr-2 h-4 w-4" /> Language
+                  <Link to="/wishlist">
+                    <Heart className="mr-2 h-4 w-4" /> Wishlist ({wishlistCount})
+                  </Link>
                 </Button>
                 <Button variant="ghost" className="justify-start" asChild>
                   <Link to="/help">Help Center</Link>
                 </Button>
+                <div className="mt-2 border-t pt-2">
+                  <p className="px-3 pb-1 text-xs font-semibold text-muted-foreground">
+                    <Globe className="mr-1 inline h-3.5 w-3.5" /> Language
+                  </p>
+                  {languages.map((lang) => (
+                    <Button
+                      key={lang}
+                      variant="ghost"
+                      className="w-full justify-start"
+                      onClick={() => setLanguage(lang)}
+                    >
+                      <span className="flex-1 text-left">{lang}</span>
+                      {language === lang && <Check className="h-4 w-4 text-primary" />}
+                    </Button>
+                  ))}
+                </div>
               </div>
             </SheetContent>
           </Sheet>
