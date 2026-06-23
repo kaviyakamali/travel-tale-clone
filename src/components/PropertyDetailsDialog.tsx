@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { BookingCard } from "./BookingCard";
 import { toast } from "sonner";
 
 interface Props {
@@ -84,38 +85,27 @@ export function PropertyDetailsDialog({
 
           <Separator />
 
-          <div className="flex items-center justify-between">
-            <div>
-              <span className="text-lg font-bold">${property.price}</span>
-              <span className="text-muted-foreground"> / night</span>
-            </div>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full"
-                onClick={() => onToggleWishlist(property.id)}
-                aria-label="Wishlist"
-              >
-                <Heart className={`h-4 w-4 ${saved ? "fill-primary text-primary" : ""}`} />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full"
-                onClick={() => toast.success("Link copied!")}
-                aria-label="Share"
-              >
-                <Share className="h-4 w-4" />
-              </Button>
-              <Button
-                className="rounded-full px-6 font-semibold"
-                onClick={() => toast.success(`Reserved ${property.title}! 🎉`)}
-              >
-                Reserve
-              </Button>
-            </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2 rounded-full"
+              onClick={() => onToggleWishlist(property.id)}
+            >
+              <Heart className={`h-4 w-4 ${saved ? "fill-primary text-primary" : ""}`} />
+              {saved ? "Saved" : "Save"}
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2 rounded-full"
+              onClick={() => toast.success("Link copied!")}
+            >
+              <Share className="h-4 w-4" /> Share
+            </Button>
           </div>
+
+          <BookingCard property={property} />
         </div>
       </DialogContent>
     </Dialog>

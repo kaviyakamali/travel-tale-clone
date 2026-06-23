@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Heart, Star } from "lucide-react";
 import type { Property } from "@/data/properties";
@@ -19,22 +20,36 @@ export function PropertyCard({
   onOpen,
   index = 0,
 }: PropertyCardProps) {
+  const images = property.gallery.length ? property.gallery : [property.image];
+  const [active, setActive] = useState(0);
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: (index % 4) * 0.06 }}
+      whileHover={{ y: -4 }}
       className="group cursor-pointer"
       onClick={() => onOpen(property)}
+      onMouseLeave={() => setActive(0)}
     >
-      <div className="relative overflow-hidden rounded-2xl">
-        <img
-          src={property.image}
-          alt={property.title}
-          loading="lazy"
-          className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+      <div className="relative overflow-hidden rounded-2xl shadow-sm transition-shadow duration-300 group-hover:shadow-xl">
+        {images.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt={property.title}
+            loading="lazy"
+            className={`aspect-square w-full object-cover transition-all duration-500 group-hover:scale-105 ${
+              i === active ? "opacity-100" : "absolute inset-0 opacity-0"
+            }`}
+          />
+        ))}
+
+        {/* subtle gradient on hover */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
         {property.superhost && (
           <Badge variant="secondary" className="absolute left-3 top-3 bg-background/90 font-semibold">
             Superhost
@@ -54,6 +69,25 @@ export function PropertyCard({
             }`}
           />
         </button>
+
+        {/* gallery dots */}
+        {images.length > 1 && (
+          <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            {images.map((src, i) => (
+              <button
+                key={src}
+                aria-label={`Show image ${i + 1}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActive(i);
+                }}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === active ? "w-4 bg-white" : "w-1.5 bg-white/60"
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="mt-3 space-y-1">
