@@ -14,6 +14,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HelpRouteImport } from './routes/help'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiSuggestRouteImport } from './routes/api/suggest'
 
 const WishlistRoute = WishlistRouteImport.update({
   id: '/wishlist',
@@ -40,6 +41,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSuggestRoute = ApiSuggestRouteImport.update({
+  id: '/api/suggest',
+  path: '/api/suggest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/wishlist': typeof WishlistRoute
+  '/api/suggest': typeof ApiSuggestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/wishlist': typeof WishlistRoute
+  '/api/suggest': typeof ApiSuggestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,27 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/wishlist': typeof WishlistRoute
+  '/api/suggest': typeof ApiSuggestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/help' | '/login' | '/sitemap.xml' | '/wishlist'
+  fullPaths:
+    | '/'
+    | '/help'
+    | '/login'
+    | '/sitemap.xml'
+    | '/wishlist'
+    | '/api/suggest'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/help' | '/login' | '/sitemap.xml' | '/wishlist'
-  id: '__root__' | '/' | '/help' | '/login' | '/sitemap.xml' | '/wishlist'
+  to: '/' | '/help' | '/login' | '/sitemap.xml' | '/wishlist' | '/api/suggest'
+  id:
+    | '__root__'
+    | '/'
+    | '/help'
+    | '/login'
+    | '/sitemap.xml'
+    | '/wishlist'
+    | '/api/suggest'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +99,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   WishlistRoute: typeof WishlistRoute
+  ApiSuggestRoute: typeof ApiSuggestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +139,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/suggest': {
+      id: '/api/suggest'
+      path: '/api/suggest'
+      fullPath: '/api/suggest'
+      preLoaderRoute: typeof ApiSuggestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +155,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   WishlistRoute: WishlistRoute,
+  ApiSuggestRoute: ApiSuggestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
