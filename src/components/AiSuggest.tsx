@@ -58,19 +58,7 @@ export function AiSuggest({ onPick }: AiSuggestProps) {
       setLoading(false);
     }
   };
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : "Something went wrong";
-      toast.error(
-        msg.includes("429")
-          ? "AI is busy right now — try again shortly."
-          : msg.includes("402")
-            ? "AI credits exhausted."
-            : "Couldn't fetch suggestions. Try again.",
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   return (
     <section className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
