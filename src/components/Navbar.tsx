@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Globe, Heart, Menu, Search, User } from "lucide-react";
+import { Check, Globe, Heart, Menu, Search, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +10,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -22,7 +23,7 @@ function Logo() {
       <svg viewBox="0 0 32 32" className="h-8 w-8 fill-current" aria-hidden>
         <path d="M16 1c2.5 0 4.5 2 4.9 4.6.3 1.8-.3 3.6-1.4 5.9l-.6 1.2c2.6 4.2 5 8.4 6 11.6.6 2 .3 3.7-.9 4.9-1 1-2.4 1.3-3.7 1-1.4-.3-2.7-1.2-4-2.6-1.3 1.4-2.6 2.3-4 2.6-1.3.3-2.7 0-3.7-1-1.2-1.2-1.5-2.9-.9-4.9 1-3.2 3.4-7.4 6-11.6l-.6-1.2c-1.1-2.3-1.7-4.1-1.4-5.9C11.5 3 13.5 1 16 1zm0 2.2c-1.4 0-2.5 1.1-2.7 2.7-.2 1.1.2 2.4 1.2 4.4l1.5 3 1.5-3c1-2 1.4-3.3 1.2-4.4-.2-1.6-1.3-2.7-2.7-2.7zM16 16.4c-2.2 3.6-4.2 7.4-5 10-.4 1.3-.2 2.2.3 2.7.5.5 1.2.6 1.9.5.9-.2 1.9-.9 2.9-2.1-1.2-1.6-2.1-3.4-2.1-5.1 0-.8.7-1.4 1.5-1.4s1.5.6 1.5 1.4c0 1-.5 2.1-1.3 3.3.8 1.2 1.8 1.9 2.7 2.1.7.1 1.4 0 1.9-.5.5-.5.7-1.4.3-2.7-.8-2.6-2.8-6.4-5-10z" />
       </svg>
-      <span className="hidden text-xl font-extrabold tracking-tight sm:inline">airbnb</span>
+      <span className="hidden text-xl font-extrabold tracking-tight sm:inline">Wanderly</span>
     </div>
   );
 }
@@ -35,6 +36,15 @@ interface NavbarProps {
 
 export function Navbar({ search, onSearch, wishlistCount }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [language, setLanguage] = useState("English (US)");
+  const languages = [
+    "English (US)",
+    "Español",
+    "Français",
+    "Deutsch",
+    "日本語",
+    "हिन्दी",
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -66,12 +76,29 @@ export function Navbar({ search, onSearch, wishlistCount }: NavbarProps) {
         </div>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          <Button variant="ghost" className="hidden rounded-full text-sm font-semibold lg:inline-flex" asChild>
-            <Link to="/login">Become a Host</Link>
-          </Button>
-          <Button variant="ghost" size="icon" className="hidden rounded-full sm:inline-flex" aria-label="Language">
-            <Globe className="h-5 w-5" />
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hidden rounded-full sm:inline-flex"
+                aria-label="Select language"
+              >
+                <Globe className="h-5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-44">
+              <DropdownMenuLabel>Language</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {languages.map((lang) => (
+                <DropdownMenuItem key={lang} onClick={() => setLanguage(lang)}>
+                  <span className="flex-1">{lang}</span>
+                  {language === lang && <Check className="ml-2 h-4 w-4 text-primary" />}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <ThemeToggle />
 
           <DropdownMenu>
@@ -95,17 +122,13 @@ export function Navbar({ search, onSearch, wishlistCount }: NavbarProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-52">
               <DropdownMenuItem asChild className="font-semibold">
-                <Link to="/login">Sign up</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
                 <Link to="/login">Log in</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Heart className="mr-2 h-4 w-4" /> Wishlist ({wishlistCount})
-              </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link to="/login">Become a Host</Link>
+                <Link to="/wishlist">
+                  <Heart className="mr-2 h-4 w-4" /> Wishlist ({wishlistCount})
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to="/help">Help Center</Link>
@@ -126,23 +149,32 @@ export function Navbar({ search, onSearch, wishlistCount }: NavbarProps) {
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-1">
                 <Button variant="ghost" className="justify-start" asChild>
-                  <Link to="/login">Sign up</Link>
-                </Button>
-                <Button variant="ghost" className="justify-start" asChild>
                   <Link to="/login">Log in</Link>
                 </Button>
-                <Button variant="ghost" className="justify-start">
-                  <Heart className="mr-2 h-4 w-4" /> Wishlist ({wishlistCount})
-                </Button>
                 <Button variant="ghost" className="justify-start" asChild>
-                  <Link to="/login">Become a Host</Link>
-                </Button>
-                <Button variant="ghost" className="justify-start">
-                  <Globe className="mr-2 h-4 w-4" /> Language
+                  <Link to="/wishlist">
+                    <Heart className="mr-2 h-4 w-4" /> Wishlist ({wishlistCount})
+                  </Link>
                 </Button>
                 <Button variant="ghost" className="justify-start" asChild>
                   <Link to="/help">Help Center</Link>
                 </Button>
+                <div className="mt-2 border-t pt-2">
+                  <p className="px-3 pb-1 text-xs font-semibold text-muted-foreground">
+                    <Globe className="mr-1 inline h-3.5 w-3.5" /> Language
+                  </p>
+                  {languages.map((lang) => (
+                    <Button
+                      key={lang}
+                      variant="ghost"
+                      className="w-full justify-start"
+                      onClick={() => setLanguage(lang)}
+                    >
+                      <span className="flex-1 text-left">{lang}</span>
+                      {language === lang && <Check className="h-4 w-4 text-primary" />}
+                    </Button>
+                  ))}
+                </div>
               </div>
             </SheetContent>
           </Sheet>

@@ -14,12 +14,12 @@ import {
 export const Route = createFileRoute("/help")({
   head: () => ({
     meta: [
-      { title: "Help Center — Airbnb Clone" },
+      { title: "Help Center — Wanderly" },
       {
         name: "description",
         content: "Find answers about booking, hosting, payments, and account support.",
       },
-      { property: "og:title", content: "Help Center — Airbnb Clone" },
+      { property: "og:title", content: "Help Center — Wanderly" },
       {
         property: "og:description",
         content: "Find answers about booking, hosting, payments, and account support.",

@@ -18,13 +18,13 @@ import { useWishlist } from "@/hooks/useWishlist";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Airbnb Clone — Book unique homes & experiences" },
+      { title: "Wanderly — Book unique homes & experiences" },
       {
         name: "description",
         content:
           "Discover and book unique stays and experiences around the world — beachfronts, cabins, treehouses, luxury villas and more.",
       },
-      { property: "og:title", content: "Airbnb Clone — Book unique homes & experiences" },
+      { property: "og:title", content: "Wanderly — Book unique homes & experiences" },
       {
         property: "og:description",
         content: "Discover and book unique stays and experiences around the world.",

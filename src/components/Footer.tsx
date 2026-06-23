@@ -8,10 +8,10 @@ const columns = [
   },
   {
     title: "Hosting",
-    links: ["Airbnb your home", "AirCover for Hosts", "Hosting resources", "Community forum", "Hosting responsibly"],
+    links: ["List your home", "AirCover for Hosts", "Hosting resources", "Community forum", "Hosting responsibly"],
   },
   {
-    title: "Airbnb",
+    title: "Wanderly",
     links: ["Newsroom", "New features", "Careers", "Investors", "Gift cards"],
   },
 ];
@@ -55,7 +55,7 @@ export function Footer() {
         <Separator className="my-8" />
 
         <div className="flex flex-col items-center justify-between gap-4 text-sm text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} Airbnb Clone · Built for portfolio</p>
+          <p>© {new Date().getFullYear()} Wanderly · Built for portfolio</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5 font-medium text-foreground">
               <Globe className="h-4 w-4" /> English (US)
