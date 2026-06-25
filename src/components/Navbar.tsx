@@ -133,6 +133,10 @@ export function Navbar({ search, onSearch, wishlistCount }: NavbarProps) {
               <DropdownMenuItem asChild>
                 <Link to="/help">Help Center</Link>
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link to="/admin">Admin Dashboard</Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
