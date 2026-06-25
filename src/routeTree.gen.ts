@@ -17,6 +17,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ApiSuggestRouteImport } from './routes/api/suggest'
+import { Route as AdminPropertiesRouteImport } from './routes/admin/properties'
 import { Route as AdminBookingsRouteImport } from './routes/admin/bookings'
 
 const WishlistRoute = WishlistRouteImport.update({
@@ -59,6 +60,11 @@ const ApiSuggestRoute = ApiSuggestRouteImport.update({
   path: '/api/suggest',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPropertiesRoute = AdminPropertiesRouteImport.update({
+  id: '/properties',
+  path: '/properties',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminBookingsRoute = AdminBookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/wishlist': typeof WishlistRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/properties': typeof AdminPropertiesRoute
   '/api/suggest': typeof ApiSuggestRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/wishlist': typeof WishlistRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/properties': typeof AdminPropertiesRoute
   '/api/suggest': typeof ApiSuggestRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/wishlist': typeof WishlistRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/properties': typeof AdminPropertiesRoute
   '/api/suggest': typeof ApiSuggestRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/wishlist'
     | '/admin/bookings'
+    | '/admin/properties'
     | '/api/suggest'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/wishlist'
     | '/admin/bookings'
+    | '/admin/properties'
     | '/api/suggest'
     | '/admin'
   id:
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/wishlist'
     | '/admin/bookings'
+    | '/admin/properties'
     | '/api/suggest'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -201,6 +213,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSuggestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/properties': {
+      id: '/admin/properties'
+      path: '/properties'
+      fullPath: '/admin/properties'
+      preLoaderRoute: typeof AdminPropertiesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/bookings': {
       id: '/admin/bookings'
       path: '/bookings'
@@ -213,11 +232,13 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminBookingsRoute: typeof AdminBookingsRoute
+  AdminPropertiesRoute: typeof AdminPropertiesRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminBookingsRoute: AdminBookingsRoute,
+  AdminPropertiesRoute: AdminPropertiesRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
