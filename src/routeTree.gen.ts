@@ -21,6 +21,7 @@ import { Route as AdminPropertiesRouteImport } from './routes/admin/properties'
 import { Route as AdminHostsRouteImport } from './routes/admin/hosts'
 import { Route as AdminCustomersRouteImport } from './routes/admin/customers'
 import { Route as AdminBookingsRouteImport } from './routes/admin/bookings'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin/analytics'
 
 const WishlistRoute = WishlistRouteImport.update({
   id: '/wishlist',
@@ -82,6 +83,11 @@ const AdminBookingsRoute = AdminBookingsRouteImport.update({
   path: '/bookings',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/wishlist': typeof WishlistRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/hosts': typeof AdminHostsRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/wishlist': typeof WishlistRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/hosts': typeof AdminHostsRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/wishlist': typeof WishlistRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/hosts': typeof AdminHostsRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/sitemap.xml'
     | '/wishlist'
+    | '/admin/analytics'
     | '/admin/bookings'
     | '/admin/customers'
     | '/admin/hosts'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/sitemap.xml'
     | '/wishlist'
+    | '/admin/analytics'
     | '/admin/bookings'
     | '/admin/customers'
     | '/admin/hosts'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/sitemap.xml'
     | '/wishlist'
+    | '/admin/analytics'
     | '/admin/bookings'
     | '/admin/customers'
     | '/admin/hosts'
@@ -265,10 +277,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBookingsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
   AdminBookingsRoute: typeof AdminBookingsRoute
   AdminCustomersRoute: typeof AdminCustomersRoute
   AdminHostsRoute: typeof AdminHostsRoute
@@ -277,6 +297,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
   AdminBookingsRoute: AdminBookingsRoute,
   AdminCustomersRoute: AdminCustomersRoute,
   AdminHostsRoute: AdminHostsRoute,
