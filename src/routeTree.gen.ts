@@ -17,6 +17,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ApiSuggestRouteImport } from './routes/api/suggest'
+import { Route as AdminRevenueRouteImport } from './routes/admin/revenue'
 import { Route as AdminPropertiesRouteImport } from './routes/admin/properties'
 import { Route as AdminHostsRouteImport } from './routes/admin/hosts'
 import { Route as AdminCustomersRouteImport } from './routes/admin/customers'
@@ -63,6 +64,11 @@ const ApiSuggestRoute = ApiSuggestRouteImport.update({
   path: '/api/suggest',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRevenueRoute = AdminRevenueRouteImport.update({
+  id: '/revenue',
+  path: '/revenue',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminPropertiesRoute = AdminPropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/hosts': typeof AdminHostsRoute
   '/admin/properties': typeof AdminPropertiesRoute
+  '/admin/revenue': typeof AdminRevenueRoute
   '/api/suggest': typeof ApiSuggestRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -115,6 +122,7 @@ export interface FileRoutesByTo {
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/hosts': typeof AdminHostsRoute
   '/admin/properties': typeof AdminPropertiesRoute
+  '/admin/revenue': typeof AdminRevenueRoute
   '/api/suggest': typeof ApiSuggestRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/hosts': typeof AdminHostsRoute
   '/admin/properties': typeof AdminPropertiesRoute
+  '/admin/revenue': typeof AdminRevenueRoute
   '/api/suggest': typeof ApiSuggestRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
     | '/admin/customers'
     | '/admin/hosts'
     | '/admin/properties'
+    | '/admin/revenue'
     | '/api/suggest'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/admin/customers'
     | '/admin/hosts'
     | '/admin/properties'
+    | '/admin/revenue'
     | '/api/suggest'
     | '/admin'
   id:
@@ -177,6 +188,7 @@ export interface FileRouteTypes {
     | '/admin/customers'
     | '/admin/hosts'
     | '/admin/properties'
+    | '/admin/revenue'
     | '/api/suggest'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -249,6 +261,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSuggestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/revenue': {
+      id: '/admin/revenue'
+      path: '/revenue'
+      fullPath: '/admin/revenue'
+      preLoaderRoute: typeof AdminRevenueRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/properties': {
       id: '/admin/properties'
       path: '/properties'
@@ -293,6 +312,7 @@ interface AdminRouteChildren {
   AdminCustomersRoute: typeof AdminCustomersRoute
   AdminHostsRoute: typeof AdminHostsRoute
   AdminPropertiesRoute: typeof AdminPropertiesRoute
+  AdminRevenueRoute: typeof AdminRevenueRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -302,6 +322,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminCustomersRoute: AdminCustomersRoute,
   AdminHostsRoute: AdminHostsRoute,
   AdminPropertiesRoute: AdminPropertiesRoute,
+  AdminRevenueRoute: AdminRevenueRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
