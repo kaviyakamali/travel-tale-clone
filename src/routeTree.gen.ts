@@ -19,6 +19,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ApiSuggestRouteImport } from './routes/api/suggest'
 import { Route as AdminRevenueRouteImport } from './routes/admin/revenue'
 import { Route as AdminPropertiesRouteImport } from './routes/admin/properties'
+import { Route as AdminNotificationsRouteImport } from './routes/admin/notifications'
 import { Route as AdminMessagesRouteImport } from './routes/admin/messages'
 import { Route as AdminHostsRouteImport } from './routes/admin/hosts'
 import { Route as AdminCustomersRouteImport } from './routes/admin/customers'
@@ -75,6 +76,11 @@ const AdminPropertiesRoute = AdminPropertiesRouteImport.update({
   path: '/properties',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminMessagesRoute = AdminMessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/hosts': typeof AdminHostsRoute
   '/admin/messages': typeof AdminMessagesRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/properties': typeof AdminPropertiesRoute
   '/admin/revenue': typeof AdminRevenueRoute
   '/api/suggest': typeof ApiSuggestRoute
@@ -129,6 +136,7 @@ export interface FileRoutesByTo {
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/hosts': typeof AdminHostsRoute
   '/admin/messages': typeof AdminMessagesRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/properties': typeof AdminPropertiesRoute
   '/admin/revenue': typeof AdminRevenueRoute
   '/api/suggest': typeof ApiSuggestRoute
@@ -147,6 +155,7 @@ export interface FileRoutesById {
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/hosts': typeof AdminHostsRoute
   '/admin/messages': typeof AdminMessagesRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
   '/admin/properties': typeof AdminPropertiesRoute
   '/admin/revenue': typeof AdminRevenueRoute
   '/api/suggest': typeof ApiSuggestRoute
@@ -166,6 +175,7 @@ export interface FileRouteTypes {
     | '/admin/customers'
     | '/admin/hosts'
     | '/admin/messages'
+    | '/admin/notifications'
     | '/admin/properties'
     | '/admin/revenue'
     | '/api/suggest'
@@ -182,6 +192,7 @@ export interface FileRouteTypes {
     | '/admin/customers'
     | '/admin/hosts'
     | '/admin/messages'
+    | '/admin/notifications'
     | '/admin/properties'
     | '/admin/revenue'
     | '/api/suggest'
@@ -199,6 +210,7 @@ export interface FileRouteTypes {
     | '/admin/customers'
     | '/admin/hosts'
     | '/admin/messages'
+    | '/admin/notifications'
     | '/admin/properties'
     | '/admin/revenue'
     | '/api/suggest'
@@ -287,6 +299,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPropertiesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/notifications': {
+      id: '/admin/notifications'
+      path: '/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AdminNotificationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/messages': {
       id: '/admin/messages'
       path: '/messages'
@@ -331,6 +350,7 @@ interface AdminRouteChildren {
   AdminCustomersRoute: typeof AdminCustomersRoute
   AdminHostsRoute: typeof AdminHostsRoute
   AdminMessagesRoute: typeof AdminMessagesRoute
+  AdminNotificationsRoute: typeof AdminNotificationsRoute
   AdminPropertiesRoute: typeof AdminPropertiesRoute
   AdminRevenueRoute: typeof AdminRevenueRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -342,6 +362,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminCustomersRoute: AdminCustomersRoute,
   AdminHostsRoute: AdminHostsRoute,
   AdminMessagesRoute: AdminMessagesRoute,
+  AdminNotificationsRoute: AdminNotificationsRoute,
   AdminPropertiesRoute: AdminPropertiesRoute,
   AdminRevenueRoute: AdminRevenueRoute,
   AdminIndexRoute: AdminIndexRoute,
