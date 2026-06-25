@@ -133,6 +133,10 @@ export function Navbar({ search, onSearch, wishlistCount }: NavbarProps) {
               <DropdownMenuItem asChild>
                 <Link to="/help">Help Center</Link>
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link to="/admin">Admin Dashboard</Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -158,6 +162,9 @@ export function Navbar({ search, onSearch, wishlistCount }: NavbarProps) {
                 </Button>
                 <Button variant="ghost" className="justify-start" asChild>
                   <Link to="/help">Help Center</Link>
+                </Button>
+                <Button variant="ghost" className="justify-start" asChild>
+                  <Link to="/admin">Admin Dashboard</Link>
                 </Button>
                 <div className="mt-2 border-t pt-2">
                   <p className="px-3 pb-1 text-xs font-semibold text-muted-foreground">
